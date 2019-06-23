@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import { people } from "./People";
+import Person from "./Friends/Person";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      persons: []
+    };
+  }
+  componentDidMount() {
+    console.log("CDM invoked!");
+    this.setState({ persons: people });
+  }
+  showMenuHandler= (event)=> {
+    event.preventDefault();
+    this.setState({showMenu:true,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1> Welcome to Friends! </h1>
+        {this.state.persons.map(person =>
+          <Person person={person} />
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;
